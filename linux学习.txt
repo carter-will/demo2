@@ -1,0 +1,56 @@
+----指令   --ubuntu
+linux下查看ip地址
+sudo ifconfig -a
+
+由其他用户跳转到root权限
+sudo su
+由root权限到其他用户
+su user
+开启防火墙  ufw disable
+关闭防火墙  ufw enable
+查看防火墙状态 sudo ufw status
+
+Ubuntu默认不安装openssh服务器，所以若要使用ssh远程登录Ubuntu主机，首先需要安装ssh服务器。
+首先，判断Ubuntu是否安装了ssh服务：
+1、输入：#ps -e | grep ssh 如果服务已经启动，则可以看到“sshd”，否则表示没有安装服务，或没有开机启动
+2、安装ssh服务，输入命令：#sudo apt-get install openssh-server 
+3、启动服务:#/etc/init.d/ssh start 
+4、本机测试是否能够成功登录：#ssh -l 用户名 本机ip
+
+redis 6379端口配置参考网址
+http://www.web520.cn/archives/41798
+
+Linux系统如何查看版本信息
+uname -a        查看电脑以及操作系统
+uname -a        查看内核版本
+cat /proc/version        正在运行的内核版本
+cat /etc/issue           查看发行版本信息
+cat /proc/cpuinfo        查看CPU信息
+getconf LONG_BIT         查看CPU位数
+ldd /sbin/mii-tool       查看libc、gcc版本
+cat /proc/meminfo        查看内存信息
+df -h                    查看硬盘和分区
+fdisk -l                 查看分区
+du -sh                   看到全部占用的空间
+du /etc -sh              可以看到这个目录的大小
+cat -n /root/install.log 查看系统安装的时候装的软件包
+rpm -qa                  查看现在已经安装了那些软件包
+cat /etc/sysconfig/keyboard查看键盘布局
+sestatus                 查看selinux情况
+cat /etc/sysconfig/selinux   查看selinux情况
+ifconfig                 查看ip，mac地址
+cat /etc/sysconfig/network   查看网关
+cat /etc/nf                  查看dns
+echo $LANG $LANGUAGE         查看默认语言   cat /etc/sysconfig/i18n
+cat /etc/sysconfig/clock     查看所属时区和是否使用UTC时间
+hostname                     查看主机名       cat /etc/sysconfig/network
+more /proc/cpuinfo |grep "physical id"|uniq|wc -l   查看内核数
+
+
+lsof -i:端口号   用于查看某一端口的占用情况 可以获取pid (进程) 如   lsof -i:8000
+netstat -tunlp |grep 端口号，用于查看指定的端口号的进程情况    如   netstat -tunlp |grep 8080
+几个参数的含义 			 -t (tcp) 仅显示tcp相关选项
+                                 -u (udp)仅显示udp相关选项
+                                 -n 拒绝显示别名，能显示数字的全部转化为数字
+                                 -l 仅列出在Listen(监听)的服务状态
+                                 -p 显示建立相关链接的程序名

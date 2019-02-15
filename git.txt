@@ -1,0 +1,108 @@
+git --version   查看git版本
+
+mkdir gitwork1
+cd gitwork1
+pwd
+git init     把当前目录变成Git可以管理的仓库
+ls -ah     可以查看隐藏目录和文件
+
+git add git11.txt   将文件添加到仓库
+git commit -m "xxxxx"   把文件提交到仓库
+
+git status     查看结果
+git diff git11.txt   查看修改的内容
+git diff HEAD -- git11.txt   查看工作区和版本库里面最新版本的区别
+
+git log        查看历史记录
+git log --pretty=oneline  查看历史记录  版本号 + 备注
+
+git reset --hard HEAD^    回退到上一个版本
+<!--
+HEAD 表示当前版本  HEAD^  表示上一版本    HEAD~100   往上100个版本
+-->
+git reset --hard <版本号>    向前回退/再回退到最新版本
+git reflog           记录命令执行记录
+
+工作区 --->  暂存区  ---> master
+git commit 只提交暂存区中的内容
+
+git checkout -- git11.txt   把文件在工作区的修改全部撤销
+git reset HEAD git11.txt  可以把暂存区的修改撤销（unstage）掉，重新放回工作区
+
+git rm git11.txt  删除一个文件
+
+1.创建SSH key
+ssh-keygen -t rsa -C "youremail@example.com"
+2.添加pub key  到github  的ssh连接
+
+git remote add origin git@server-name:path/repo-name.git   关联一个远程库
+git push -u origin master     关联成功后，第一次推送分支的所有内容
+git push origin master        向远程推送最新修改
+
+
+git clone git@github.com:carter-will/demo2.git    克隆远程库的文件到本地库
+
+####git分支
+git checkout -b dev     创建并切换到dev 分支 相当于以下两条合并
+         git branch dev     创建分支
+         git checkout dev   切换分支
+git branch   列出所有分支   当前分支前面会有一个 *
+git checkout master  切换回master分支
+git merge dev  把dev分支的工作成果合并到 master分支上
+git branch -d dev   删除dev 分支
+
+####git解决冲突
+从dev 合并至master时，如果报冲突，则在 master分支下手动解决，然后提交即可。
+git status  也可以展示冲突的文件
+git log --graph --pretty=oneline --abbrev-commit 查看分支合并图 
+
+合并时强制使用Fast forward 模式，Git会在merge时生成一个新的commit
+git merge --no-ff -m "merge with no-ff" dev         --no-ff 表示禁用Fast forward 用普通模式合并，
+合并后的历史有分支，能看出来曾经做过合并。而fast forward合并就看不出来曾经做过合并。
+
+#### 创建临时分支解决bug
+在dev 分支上工作时要处理临时bug：
+git stash   把当前工作现场储藏起来
+假定要在master分支上修复bug,则先切换到 master分支
+在master分支上建立 issue 临时分支用于处理bug，切换到issue分支
+修复bug,然后提交，再切换到master分支
+完成合并，最后删除issue临时分支
+切换回dev 分支继续工作
+git stash list 查看储藏的工作现场
+恢复现场 有两种方法
+1.  git stash apply  恢复后，stash内容并不删除，需要使用   git stash drop 删除
+2.  git stash pop    恢复的同时把stash内容也删了
+多次 stash ,恢复的时候 可以先用 git stash list 查看，然后恢复指定的 stash ,使用： git stash apply stash@{0}
+
+强制删除分支         git branch -D feature-vulcan
+
+####多人协作
+git remote   查看远程库的信息  加  -v   显示更详细的信息
+git push origin master 把该分支上的所有本地提交推送到远程库，也可以推送其他分支，比如git push origin dev
+git checkout -b dev origin/dev  创建远程origin的dev 分支到本地，创建本地dev分支
+当推送远程时发送冲突，可以 先  git pull 把最新的提交从origin/dev 抓下来，然后本地合并，解决冲突，再进行推送
+如果 git pull 失败，执行 git branch --set-upstream-to=origin/dev dev     指定本地dev分支与远程origin/dev 分支的链接
+再进行git pull，解决冲突，提交。之后推送 push。
+
+rebase操作可以把本地未push的分叉提交历史整理成直线
+
+####标签
+首先切换到需要打标签的分支
+git tag v1.0   打一个新标签
+git tag 查看所有标签
+git tag v0.9 f52c633  对历史的某一次commit 打标签
+git show v0.9   查看标签信息
+git tag -a v0.1 -m "version 0.1 released" 1094adb    创建带有说明的标签
+git tag -d v0.1  删除标签
+git push origin v1.0  推送某个标签到远程
+git push origin --tags  一次性推送全部尚未推送到远程的本地标签
+删除远程标签    先从本地删除  git tag -d v0.9 再从远程删除  git push origin : refs/tags/v0.9
+
+
+
+
+
+
+
+
+
