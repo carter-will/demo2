@@ -167,3 +167,10 @@ ZAB协议的消息广播过程使用的是一个原子广播协议，类似于�
 ### 奔溃恢复
 
 一旦Leader服务器出现崩溃，或者由于网络原因导致Leader服务器失去了过半Follower的联系，那么就会进入崩溃恢复模式，并且恢复后需要一个新的leader，因此zab协议需要一个高效的选举方案
+
+## zookeeper安装
+
+### windows下安装
+
+[安装教程](https://blog.csdn.net/yzy199391/article/details/80605195) 
+
