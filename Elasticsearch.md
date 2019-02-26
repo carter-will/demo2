@@ -69,6 +69,8 @@ win +R  呼出cmd
 
 首先需要安装 node  ,[参考](https://blog.csdn.net/Duke147/article/details/82773679)    [参考2](https://www.cnblogs.com/skychen1218/p/8108860.html) 
 
+[ElasticSearch中文分词插件IK安装](https://blog.csdn.net/zjcjava/article/details/78653753) 
+
 #### 使用Logstash同步mysql数据到elasticsearch
 
 [参考1](https://blog.csdn.net/qq_32447301/article/details/81942108)    [参考2](https://blog.csdn.net/qq_32447301/article/details/81942108) 
@@ -77,4 +79,11 @@ win +R  呼出cmd
 
 [windows下curl安装1](https://www.cnblogs.com/zhuzhenwei918/p/6781314.html)    [windows下安装curl2](https://www.cnblogs.com/xing901022/p/4652624.html) 
 
- 
+ ## ElasticSearch常见操作
+
+[使用postman操作es](https://www.cnblogs.com/wardensky/p/5798449.html)
+
+[查询结果参数解析以及DSL概念和用法](https://blog.csdn.net/u013613428/article/details/56484794) 
+
+[Jest操作es索引](http://www.cnblogs.com/enenen/p/9122053.html)   [Springboot 集成 Jest](https://blog.csdn.net/lvyuan1234/article/details/78657869) 
+
