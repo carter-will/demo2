@@ -152,6 +152,30 @@ Znode更改是与znode相关的数据的修改或znode的子项中的更改。�
 
 (5)新Leader通过事务ID和所有的Follower机器上的事务ID进行对比，确保数据同步。保证数据在所有的Follower上与之达成同步。旧Leader上新被提出的事务被抛弃。当数据达到同步，才将Follower服务器加入可用的Follower服务器列表。然后开始消息广播。
 
+:question:选举状态
+
+- LOOKING，竞选状态。
+- FOLLOWING，随从状态，同步leader状态，参与投票。
+- OBSERVING，观察状态,同步leader状态，不参与投票。
+- LEADING，领导者状态。
+
+:question:选举消息内容
+
+在投票完成后，需要将投票信息发送给集群中的所有服务器，它包含以下内容：
+
+- 服务器ID
+- 数据ID
+- 逻辑时钟
+- 选举状态
+
+​:question: 选举流程图
+
+![](https://static.oschina.net/uploads/space/2017/0404/144149_n7KA_1866807.png)
+
+#### ZooKeeper为何要求分布式集群至少有3个节点
+
+在zookeeper的选举过程中，为了保证选举过程最后能选出leader，就一定不能出现两台机器得票相同的僵局，所以一般的，要求zk集群的server数量一定要是奇数，也就是2n+1台，并且，如果集群出现问题，其中存活的机器必须大于n+1台，否则leader无法获得多数server的支持，系统就自动挂掉。所以一般是3个或者3个以上节点。
+
 ## Zookeeper的算法
 
 zk的核心算法为ZAB(原子消息广播协议)，与Paxos不同，这是一种特别为zk设计的崩溃可恢复的原子消息广播算法
@@ -173,4 +197,14 @@ ZAB协议的消息广播过程使用的是一个原子广播协议，类似于�
 ### windows下安装
 
 [安装教程](https://blog.csdn.net/yzy199391/article/details/80605195) 
+
+### linux下安装zookeeper集群
+
+[安装教程](https://blog.csdn.net/qiushisoftware/article/details/79043379)
+
+### 客户端连接zk集群
+
+客户单连接zk集群时，url必须包含所有有效zk实例的ip+port.
+
+[java连接zookeeper集群](https://blog.csdn.net/wuhenzhangxing/article/details/52936271) 
 
