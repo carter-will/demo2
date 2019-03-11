@@ -125,3 +125,58 @@ sEx只是调用相关程序，本身并无压缩、解压功能，请注意！
 - gzip -l *% 详细显示每个压缩的文件的信息，并不解压。
 - gzip usr.tar% 压缩 tar 备份文件 usr.tar，此时压缩文件的扩展名为.tar.gz。
 
+
+## LINUX  下安装各软件
+
+#### 安装jdk
+
+使用yum源 
+1、查看yum库中都有哪些jdk版本 
+yum search java|grep jdk 
+2、选择指定的版本安装 
+ yum install java-1.8.0-openjdk 
+3、安装完成后查看版本信息 
+
+java -version
+
+#### 卸载jdk
+
+查看jdk文件
+
+rpm -qa | grep jdk
+
+卸载命令: rpm -e  要卸载的文件
+
+#### 解压方式安装jdk
+
+1. 下载jdk包传输到linux服务器上
+
+2. 解压缩
+
+   ```
+   tar -zxvf jdk-8u201-linux-x64.tar.gz 
+   ```
+
+3. vim  /etc/profile   插入以下：
+
+   ```
+   export JAVA_HOME=/usr/java/jdk1.6.0_45
+   export PATH=$JAVA_HOME/bin:$PATH
+   export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+   ```
+
+4. 保存之后通过source /etc/profile命令使修改的配置生效
+
+5. 使用  java -version  查看是否安装成功
+
+#### linux  防火墙设置
+
+基于red  hat
+
+systemctl stop firewalld            临时关闭防火墙  ，重启linux会打卡
+
+systemctl status firewalld	     查看防火墙状态
+
+systemctl disable firewalld       禁用防火墙
+
+systemctl enable firewalld	      开启防火墙
