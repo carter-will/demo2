@@ -1,0 +1,50 @@
+curl  操作 es 
+
+显示ES的版本信息
+curl -XGET http://localhost:9200/
+创建索引   默认5个分片
+curl -XPUT 'http://localhost:9200/idx1'
+curl -XPUT 'http://localhost:9200/idx1?pretty'
+删除指定索引
+curl -X DELETE http://localhost:9200/idx3?pretty
+查看集群健康值
+curl http://localhost:9200/_cat/health?v
+查看所有节点
+curl http://localhost:9200/_cat/nodes?v
+列出所有索引及存储大小
+curl http://localhost:9200/_cat/indices?v
+
+查询某个索引下的所有数据
+curl -XGET http://localhost:9200/idx1/_search?pretty
+查询某个type下的所有数据
+curl -XGET http://localhost:9200/idx1/type1/_search?pretty
+
+添加文档
+curl -X PUT http://localhost:9200/idx1/type1/1?pretty -H 'Content-Type:application/json' -d '
+{
+"name":"tom"
+}'
+查询文档
+curl -X GET http://localhost:9200/idx1/type1/1?pretty
+更新文档
+curl -X POST http://localhost:9200/idx1/type1/1/_update?pretty -H 'Content-Type:application/json' -d '
+{
+"doc":{"name":"jane"}
+}'
+添加字段
+curl -X POST http://localhost:9200/idx1/type1/1/_update?pretty -H 'Content-Type:application/json' -d '
+{
+"doc":{"name":"jane","age":25}
+> }'
+删除文档
+curl -X DELETE http://localhost:9200/idx1/type1/2?pretty
+
+
+
+
+
+
+
+
+
+

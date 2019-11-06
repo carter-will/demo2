@@ -57,6 +57,28 @@ Sense提供了一个专门用于使用**ElasticSearch**的REST API的简单用�
 
 附： [离线安装CRX格式chrome插件的方法](http://www.cnplugins.com/tools/how-to-setup-crx.html)     
 
+#### linux下安装ElasticSearch
+
+下载tar.gz包传到linux服务器上，或者直接在linux下:
+
+```
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.6.2.tar.gz
+```
+
+解压
+
+tar -zxvf elasticsearch-6.6.2.tar.gz 
+
+> ES不能用root用户启动，否则会启动报错
+>
+> 添加es用户    adduser es
+>
+> 给es用户赋予操作文件夹的权限  chown -R es:es /usr/local/elasticserch-6.3.0
+>
+> 切换到es用户，启动es      su es
+>
+> ./elasticsearch
+
 #### 将ElasticSearch 安装成Windows服务
 
 win +R  呼出cmd
