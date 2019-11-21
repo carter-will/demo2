@@ -1,5 +1,9 @@
 # Dubbo
 
+## RPC
+
+
+
 ## 简介
 
 #### 常见应用架构
@@ -24,13 +28,13 @@
 - - 当服务越来越多，容量的评估，小服务资源的浪费等问题逐渐显现，此时需增加一个调度中心基于访问压力实时管理集群容量，提高集群利用率。
   - 此时，用于提高机器利用率的 **资源调度和治理中心****(SOA)** 是关键。
 
-![](F:\CRMrefer\note\Dubbo\pic\Dubbo服务治理.jpg)
+![](.\Dubbo\pic\Dubbo服务治理.jpg)
 
 [F5硬件负载均衡器](https://blog.csdn.net/zjlovety/article/details/82695978)
 
 **Dubbo架构**
 
-![](F:\CRMrefer\note\Dubbo\pic\Dubbo架构.jpg)
+![](.\Dubbo\pic\Dubbo架构.jpg)
 
 - **Provider:** 暴露服务的服务提供方。
 - **Consumer:** 调用远程服务的服务消费方。
@@ -192,7 +196,7 @@
 
 **Configuration Relation:**
 
-![](F:\CRMrefer\note\Dubbo\pic\configuration-ref.jpg)
+![](.\Dubbo\pic\configuration-ref.jpg)
 
 -  <<dubbo:service/>>服务配置，用于暴露一个服务，定义服务的元信息，一个服务可以用多个协议暴露，一个服务也可以注册到多个注册中心。
 - <<dubbo:reference/>>引用配置，用于创建一个远程服务代理，一个引用可以指向多个注册中心。
@@ -207,7 +211,7 @@
 - <<dubbo:method/>> 方法配置，用于ServiceConfig和ReferenceConfig指定方法级的配置信息。
 - <<dubbo:argument/>> 用于指定方法参数配置。
 
-![](F:\CRMrefer\note\Dubbo\pic\ConfigurationOverride.jpg)
+![](.\Dubbo\pic\ConfigurationOverride.jpg)
 
 以timeout为例，显示了配置的查找顺序，其它retries, loadbalance, actives等类似:
 
@@ -462,7 +466,7 @@ java -Ddubbo.registry.check=false
 
 在集群调用失败时，Dubbo提供了多种容错方案，缺省为failover重试
 
-![](F:\CRMrefer\note\Dubbo\pic\集群.jpg)
+![](.\Dubbo\pic\集群.jpg)
 
 - 这里的Invoker是Provider的一个可调用Service的抽象，Invoker封装了Provider地址及Service接口信息。
 - Directory代表多个Invoker，可以把它看成List<Invoker>，但与List不同的是，它的值可能是动态变化的，比如注册中心推送变更。
@@ -574,7 +578,7 @@ java -Ddubbo.registry.check=false
 
 #### 线程模型
 
-![](F:\CRMrefer\note\Dubbo\pic\线程模型.jpg)
+![](.\Dubbo\pic\线程模型.jpg)
 
 > **事件处理线程说明**
 >
@@ -609,7 +613,7 @@ java -Ddubbo.registry.check=false
 点对点直联方式，将以服务接口为单位，忽略注册中心的提供者列表，
 A接口配置点对点，不影响B接口从注册中心获取列表。
 
-![](F:\CRMrefer\note\Dubbo\pic\点对点直连.jpg)
+![](.\Dubbo\pic\点对点直连.jpg)
 
 1. 如果是线上需求需要点对点，可在<dubbo:reference>中配置url指向提供者，将绕过注册中心，**多个地址用分号隔开**，配置如下：
 
@@ -640,7 +644,7 @@ A接口配置点对点，不影响B接口从注册中心获取列表。
 
 ! 可以让服务提供者开发方，只订阅服务(开发的服务可能依赖其它服务)，而不注册正在开发的服务，通过直连测试正在开发的服务。
 
-![](F:\CRMrefer\note\Dubbo\pic\只订阅.jpg)
+![](.\Dubbo\pic\只订阅.jpg)
 
 禁用注册配置：
 
@@ -886,7 +890,7 @@ consumer.xml:
 
 按组合并返回结果，比如菜单服务，接口一样，但有多种实现，用group区分，现在消费方需从每种group中调用一次返回结果，合并结果返回，这样就可以实现聚合菜单项。   
 
-![](F:\CRMrefer\note\Dubbo\pic\分组聚合.jpg)
+![](.\Dubbo\pic\分组聚合.jpg)
 
 配置如：
 
@@ -1048,7 +1052,7 @@ public class XxxServiceImpl implements XxxService {
 
 > 注：path,group,version,dubbo,token,timeout几个key有特殊处理，请使用其它key值。
 
-![](F:\CRMrefer\note\Dubbo\pic\隐式传参.jpg)
+![](.\Dubbo\pic\隐式传参.jpg)
 
 **服务消费方**
 
@@ -1460,7 +1464,7 @@ Load Balance均衡：配置服务的**客户端**的loadbalance属性为leastact
 
 #### 令牌验证
 
-![](F:\CRMrefer\note\Dubbo\pic\令牌验证.jpg)
+![](.\Dubbo\pic\令牌验证.jpg)
 
 - 防止消费者绕过注册中心访问提供者
 - 在注册中心控制权限，以决定要不要下发令牌给消费者
@@ -2018,7 +2022,7 @@ Thrift是Facebook捐给Apache的一个RPC框架，参见：[http://thrift.apache
 
 组播地址段: 224.0.0.0 - 239.255.255.255
 
-![](F:\CRMrefer\note\Dubbo\pic\Multicast.jpg)
+![](.\Dubbo\pic\Multicast.jpg)
 
 1. 提供方启动时广播自己的地址。
 2. 消费方启动时广播订阅请求。
@@ -2047,7 +2051,7 @@ Thrift是Facebook捐给Apache的一个RPC框架，参见：[http://thrift.apache
 
  Zookeeper是Apacahe Hadoop的子项目，是一个树型的目录服务，支持变更推送，适合作为Dubbo服务的注册中心，工业强度较高，可用于生产环境，并推荐使用，参见：[http://zookeeper.apache.org](http://zookeeper.apache.org/)   
 
-![](F:\CRMrefer\note\Dubbo\pic\zookeeper.jpg)
+![](.\Dubbo\pic\zookeeper.jpg)
 
 流程说明：
 
@@ -2138,7 +2142,7 @@ Redis是一个高效的KV存储服务器
 **Redis过期数据**
 通过心跳的方式检测脏数据，服务器时间必须相同，并且对服务器有一定压力。
 
-![](F:\CRMrefer\note\Dubbo\pic\redis.jpg)
+![](.\Dubbo\pic\redis.jpg)
 
 数据结构：
 
@@ -2301,7 +2305,7 @@ Redis是一个高效的KV存储服务器
    dubbo.monitor.address=127.0.0.1:7070
    ```
 
-## Dubbo 常见问题
+## Dubbo/RPC 常见问题
 
 序列化，就是把数据结构或者是一些对象，转换为二进制串的过程，而反序列化是将在序列化过程中所生成的二进制串转换成数据结构或者对象的过程。
 
@@ -2313,6 +2317,23 @@ Redis是一个高效的KV存储服务器
 - http 协议   走 json 序列化
 - webservice   走 SOAP 文本
 
+##### 默认使用的是什么通信框架
+
+ 默认也推荐使用netty框架，还有mina。 
+
+##### Dubbo原理
+
+
+
+##### Dubbo调用流程
+
+0. 服务容器负责启动，加载，运行服务提供者。
+1. 务提供者在启动时，向注册中心注册自己提供的服务。 
+2. 服务消费者在启动时，向注册中心订阅自己所需的服务。 
+3. 注册中心返回服务提供者地址列表给消费者，如果有变更，注册中心将基于长连接推送变更数据给消费者。 
+4. 服务消费者，从提供者地址列表中，基于软负载均衡算法，选一台提供者进行调用，如果调用失败，再选另一台调用。 
+5. 服务消费者和提供者，在内存中累计调用次数和调用时间，定时每分钟发送一次统计数据到监控中心 
+
 ##### dubbo 支持的序列化协议？
 
 dubbo 支持 hession、Java 二进制序列化、json、SOAP 文本序列化多种序列化协议。但是 hessian 是其默认的序列化协议。
@@ -2320,6 +2341,24 @@ dubbo 支持 hession、Java 二进制序列化、json、SOAP 文本序列化多�
 ##### 服务提供者能实现失效踢出是什么原理？
 
 服务失效踢出基于 zookeeper 的临时节点原理。
+
+##### Dubbo负载均衡策略
+
+-   **Random LoadBalance 随机**，按权重设置随机概率。 **Dubbo的默认负载均衡策略** 
+
+   在一个截面上碰撞的概率高，但调用量越大分布越均匀，而且按概率使用权重后也比较均匀，有利于动态调整提供者权重。 
+
+-  **RoundRobin LoadBalance 轮循**，按公约后的权重设置轮循比率。 
+
+    存在慢的提供者累积请求问题，比如：第二台机器很慢，但没挂，当请求调到第二台时就卡在那，久而久之，所有请求都卡在调到第二台上。 
+
+-  **LeastActive LoadBalance 最少活跃调用数**，相同活跃数的随机，活跃数指调用前后计数差。 
+
+   使慢的提供者收到更少请求，因为越慢的提供者的调用前后计数差会越大。 
+
+-  **ConsistentHash LoadBalance 一致性Hash**，相同参数的请求总是发到同一提供者。 
+
+   当某一台提供者挂时，原本发往该提供者的请求，基于虚拟节点，平摊到其它提供者，不会引起剧烈变动。 
 
 ##### 服务调用超时问题怎么解决
 
@@ -2330,6 +2369,44 @@ dubbo在调用服务不成功时，默认是会重试两次的。这样在服务
 ```
 <dubbo:provider delay="-1" timeout="6000" retries="0"/>
 ```
+
+##### 服务调用是阻塞的吗？
+
+默认是阻塞的，可以异步调用，没有返回值的可以这么做。
+
+Dubbo 是基于 NIO 的非阻塞实现并行调用，客户端不需要启动多线程即可完成并行调用多个远程服务，相对多线程开销较小，异步调用会返回一个 Future 对象。
+
+##### Dubbo 集群容错有几种方案？
+
+| 集群容错方案      | 说明                                       |
+| :---------------- | :----------------------------------------- |
+| Failover Cluster  | 失败自动切换，自动重试其它服务器（默认）   |
+| Failfast Cluster  | 快速失败，立即报错，只发起一次调用         |
+| Failsafe Cluster  | 失败安全，出现异常时，直接忽略             |
+| Failback Cluster  | 失败自动恢复，记录失败请求，定时重发       |
+| Forking Cluster   | 并行调用多个服务器，只要一个成功即返回     |
+| Broadcast Cluster | 广播逐个调用所有提供者，任意一个报错则报错 |
+
+##### Dubbo 服务降级，失败重试怎么做？
+
+ 可以通过dubbo:reference 中设置 mock="return null"。mock 的值也可以修改为 true，然后再跟接口同一个路径下实现一个 Mock 类，命名规则是 “接口名称+Mock” 后缀。然后在 Mock 类里实现自己的降级逻辑 
+
+##### Dubbo 配置文件是如何加载到Spring中的？
+
+ Spring容器在启动的时候，会读取到Spring默认的一些schema以及Dubbo自定义的schema，每个schema都会对应一个自己的NamespaceHandler，NamespaceHandler里面通过BeanDefinitionParser来解析配置信息并转化为需要加载的bean对象！ 
+
+##### Dubbo Monitor 实现原理？
+
+Consumer端在发起调用之前会先走filter链；provider端在接收到请求时也是先走filter链，然后才进行真正的业务逻辑处理。
+
+默认情况下，在consumer和provider的filter链中都会有Monitorfilter。
+
+1. MonitorFilter向DubboMonitor发送数据 
+
+2. DubboMonitor将数据进行聚合后（默认聚合1min中的统计数据）暂存到ConcurrentMapstatisticsMap，然后使用一个含有3个线程（线程名字：DubboMonitorSendTimer）的线程池每隔1min钟，调用SimpleMonitorService遍历发送statisticsMap中的统计数据，每发送完毕一个，就重置当前的Statistics的AtomicReference 
+3. SimpleMonitorService将这些聚合数据塞入BlockingQueue queue中（队列大写为100000） 
+4. SimpleMonitorService使用一个后台线程（线程名为：DubboMonitorAsyncWriteLogThread）将queue中的数据写入文件（该线程以死循环的形式来写）
+5. SimpleMonitorService还会使用一个含有1个线程（线程名字：DubboMonitorTimer）的线程池每隔5min钟，将文件中的统计数据画成图表 
 
 ##### 什么是SPI
 
@@ -2362,7 +2439,7 @@ RPC（Remote Procedure Call Protocol）远程过程调用协议，它是一种�
 3. 服务端存根（Server Stub）:接收客户端发送过来的请求消息并进行解包，然后再调用本地服务进行处理
 4. 服务端（Server）:服务的真正提供者
 
-![](F:\CRMrefer\note\Dubbo\pic\RPC架构.png)
+![](\Dubbo\pic\RPC架构.png)
 
 具体调用过程：
 
@@ -2441,7 +2518,28 @@ RPC（Remote Procedure Call Protocol）远程过程调用协议，它是一种�
 
 ##### RPC实现原理架构
 
-![](F:\CRMrefer\note\Dubbo\pic\RPC实现原理架构.png)
+![](.\Dubbo\pic\RPC实现原理架构.png)
+
+##### Dubbo 用到哪些设计模式？
+
+ **工厂模式**Provider在export服务时，会调用ServiceConfig的export方法。ServiceConfig中有个字段： 
+
+```java
+private static final Protocol protocol = ExtensionLoader.getExtensionLoader(Protocol.
+class).getAdaptiveExtension();
+```
+
+ Dubbo里有很多这种代码。这也是一种工厂模式，只是实现类的获取采用了JDK SPI的机制。这么实现的优点是可扩展性强，想要扩展实现，只需要在classpath下增加个文件就可以了，代码零侵入。另外，像上面的Adaptive实现，可以做到调用时动态决定调用哪个实现，但是由于这种实现采用了动态代理，会造成代码调试比较麻烦，需要分析出实际调用的实现类。 
+
+ **装饰器模式**Dubbo在启动和调用阶段都大量使用了装饰器模式。以Provider提供的调用链为例，具体的调用链代码是在ProtocolFilterWrapper的buildInvokerChain完成的，具体是将注解中含有group=provider的Filter实现，按照order排序，最后的调用顺序是： 
+
+> EchoFilter -> ClassLoaderFilter -> GenericFilter -> ContextFilter -> ExecuteLimitFilter -> TraceFilter -> TimeoutFilter -> MonitorFilter -> ExceptionFilter 
+
+ 更确切地说，这里是装饰器和责任链模式的混合使用。例如，EchoFilter的作用是判断是否是回声测试请求，是的话直接返回内容，这是一种责任链的体现。而像ClassLoaderFilter则只是在主功能上添加了功能，更改当前线程的ClassLoader，这是典型的装饰器模式。
+
+**观察者模式**Dubbo的Provider启动时，需要与注册中心交互，先注册自己的服务，再订阅自己的服务，订阅时，采用了观察者模式，开启一个listener。注册中心会每5秒定时检查是否有服务更新，如果有更新，向该服务的提供者发送一个notify消息，provider接受到notify消息后，即运行NotifyListener的notify方法，执行监听器方法。
+
+**动态代理模式**Dubbo扩展JDK SPI的类ExtensionLoader的Adaptive实现是典型的动态代理实现。Dubbo需要灵活地控制实现类，即在调用阶段动态地根据参数决定调用哪个实现类，所以采用先生成代理类的方法，能够做到灵活的调用。生成代理类的代码是ExtensionLoader的createAdaptiveExtensionClassCode方法。代理类的主要逻辑是，获取URL参数中指定参数的值作为获取实现类的key。
 
 
 
